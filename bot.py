@@ -333,14 +333,15 @@ def get_archetype(total):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
 
-    # Проверка: человек пришёл после оплаты стандарта
+    # Проверка: человек пришёл после оплаты стандарта (если редирект работает)
     if args and args[0].startswith("razbor_"):
         archetype = args[0].replace("razbor_", "")
         if archetype in STANDARD_RAZBOR:
             text = STANDARD_RAZBOR[archetype]
             link_vip = PAY_LINKS_299.get(archetype, PAY_LINKS_299["ПРИЗРАК"])
             keyboard = [
-                [InlineKeyboardButton("🔮 Открыть VIP-разбор — 299₽", url=link_vip)],
+                [InlineKeyboardButton("💳 Оплатить VIP — 299₽", url=link_vip)],
+                [InlineKeyboardButton("✅ Я оплатил VIP", callback_data=f"get_vip_{archetype}")],
                 [InlineKeyboardButton("🙅 Мне достаточно", callback_data="bye")]
             ]
             await update.message.reply_text(text, reply_markup=InlineKeyboardMarkup(keyboard))
@@ -348,7 +349,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("Разбор не найден. Пройдите тест заново: /start")
         return
 
-    # Проверка: человек пришёл после оплаты VIP
+    # Проверка: человек пришёл после оплаты VIP (если редирект работает)
     if args and args[0].startswith("vip_"):
         archetype = args[0].replace("vip_", "")
         if archetype in VIP_RAZBOR:
@@ -418,80 +419,3 @@ async def ask_question(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Проверяем, все ли вопросы пройдены
         if q_num >= len(QUESTIONS):
             return await show_result(update, context)
-    else:
-        q_num = 0
-
-    # Показываем следующий вопрос
-    keyboard = []
-    for ans, text in [
-        (1, "1 — Нет, это не я"),
-        (2, "2 — Скорее нет"),
-        (3, "3 — Скорее да"),
-        (4, "4 — Да, это про меня")
-    ]:
-        keyboard.append([InlineKeyboardButton(text, callback_data=f"a_{q_num}_{ans}")])
-
-    await query.edit_message_text(
-        f"Вопрос {q_num + 1} из 15:\n\n{QUESTIONS[q_num]}",
-        reply_markup=InlineKeyboardMarkup(keyboard)
-    )
-
-
-async def show_result(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-
-    total = sum(context.user_data["answers"])
-    name = get_archetype(total)
-    desc = SHORT_DESC[name]
-
-    context.user_data["archetype"] = name
-    link_199 = PAY_LINKS_199.get(name, PAY_LINKS_199["ПРИЗРАК"])
-
-    keyboard = [
-        [InlineKeyboardButton("🔓 Получить полный разбор — 199₽", url=link_199)],
-        [InlineKeyboardButton("🙅 Мне достаточно", callback_data="bye")]
-    ]
-
-    await query.edit_message_text(
-        f"🔮 Твой результат: {total} баллов\n\n"
-        f"Ты — {name}.\n\n"
-        f"{desc}\n\n"
-        f"─────────────────────\n\n"
-        f"Это лишь вершина. Твоя Тень скрывает больше.\n\n"
-        f"Хочешь узнать:\n"
-        f"▸ свои тёмные суперсилы\n"
-        f"▸ уязвимости, о которых ты не догадывался\n"
-        f"▸ как использовать архетип в карьере и отношениях\n\n"
-        f"Жми кнопку ниже.",
-        reply_markup=InlineKeyboardMarkup(keyboard)
-    )
-
-
-async def bye(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-    keyboard = [[InlineKeyboardButton("🔄 Пройти тест заново", callback_data="disclaimer")]]
-    await query.edit_message_text(
-        "Ты всегда можешь вернуться и заглянуть глубже.\n"
-        "Твоя Тень никуда не денется.",
-        reply_markup=InlineKeyboardMarkup(keyboard)
-    )
-
-
-def main():
-    app = Application.builder().token(TOKEN).build()
-
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(disclaimer, pattern="disclaimer"))
-    app.add_handler(CallbackQueryHandler(ask_question, pattern="^q_"))
-    app.add_handler(CallbackQueryHandler(ask_question, pattern="^a_"))
-    app.add_handler(CallbackQueryHandler(bye, pattern="bye"))
-
-    logger.info("Бот запущен!")
-    print("Бот запущен!")
-    app.run_polling()
-
-
-if __name__ == "__main__":
-    main()
