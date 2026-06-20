@@ -16,21 +16,21 @@ TOKEN = "8743456231:AAEJWRdxMw-afhvR7lf96hN9qePkl_xWSKo"
 
 # Ссылки на оплату (замените на свои из Lava.top)
 PAY_LINKS_199 = {
-    "ХИЩНИК": "https://lava.top/payment/hishnik_199",
-    "ТЕНЕВАЯ ПАНТЕРА": "https://lava.top/payment/pantera_199",
-    "СПЯЩИЙ ДЕМОН": "https://lava.top/payment/demon_199",
-    "СЕРЫЙ КАРДИНАЛ": "https://lava.top/payment/kardinal_199",
-    "КУКЛОВОД": "https://lava.top/payment/kuklovod_199",
-    "ПРИЗРАК": "https://lava.top/payment/prizrak_199",
+    "ХИЩНИК": "https://app.lava.top/products/197d5126-6fda-4388-887c-22eb965faf39",
+    "ТЕНЕВАЯ ПАНТЕРА": "https://app.lava.top/products/12ecc45c-4b08-44a5-9853-b7bf4dc15c37",
+    "СПЯЩИЙ ДЕМОН": "https://app.lava.top/products/02aa48b4-56e2-4b04-895a-1a61f4047724",
+    "СЕРЫЙ КАРДИНАЛ": "https://app.lava.top/products/213c6b95-5b1f-4f85-b646-7d462c56183a",
+    "КУКЛОВОД": "https://app.lava.top/products/721c9b34-d6ed-45b9-b6fa-0bb2d780789f",
+    "ПРИЗРАК": "https://app.lava.top/products/4b1cbb22-1836-442b-882d-f9115d503a62",
 }
 
 PAY_LINKS_299 = {
-    "ХИЩНИК": "https://lava.top/payment/hishnik_299",
-    "ТЕНЕВАЯ ПАНТЕРА": "https://lava.top/payment/pantera_299",
-    "СПЯЩИЙ ДЕМОН": "https://lava.top/payment/demon_299",
-    "СЕРЫЙ КАРДИНАЛ": "https://lava.top/payment/kardinal_299",
-    "КУКЛОВОД": "https://lava.top/payment/kuklovod_299",
-    "ПРИЗРАК": "https://lava.top/payment/prizrak_299",
+    "ХИЩНИК": "https://app.lava.top/products/3c5ed6ed-a4b7-4e3e-99c3-1eda4908be1f",
+    "ТЕНЕВАЯ ПАНТЕРА": "https://app.lava.top/products/77d3b684-0d7d-4929-a34f-1eb52c55d42e",
+    "СПЯЩИЙ ДЕМОН": "https://app.lava.top/products/48f8bdcd-adff-465d-969d-6e91973e67a1",
+    "СЕРЫЙ КАРДИНАЛ": "https://app.lava.top/products/9dcb1391-e6a4-417d-aff5-1d86dfca4ed1",
+    "КУКЛОВОД": "https://app.lava.top/products/968cb65c-8e1a-4e51-9932-4400bd80835b",
+    "ПРИЗРАК": "https://app.lava.top/products/3c5ed6ed-a4b7-4e3e-99c3-1eda4908be1f",
 }
 
 # Вопросы теста
